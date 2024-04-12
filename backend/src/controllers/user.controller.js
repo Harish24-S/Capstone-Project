@@ -33,12 +33,12 @@ export const registerUser = asyncHandler(async (req, res) => {
     const existedUser = await User.findOne({ email })
 
     if (existedUser) {
-        const avatarLocalPath = req?.file.path;
+        const avatarLocalPath = req?.file?.path;
         fs.unlinkSync(avatarLocalPath)
         throw new ApiError(409, "User with same email already exists")
     } else {
 
-        const avatarLocalPath = req.file.path;
+        const avatarLocalPath = req?.file?.path;
         // console.log(avatarLocalPath);
 
         if (!avatarLocalPath) {
