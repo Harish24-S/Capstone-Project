@@ -40,7 +40,6 @@ function LoginCard({ isInstructor = false }) {
 			} else {
 				console.log("sign in successfully", data);
 				isInstructor ? setUploader(data.data) : setUser(data.data);
-				navigate(isInstructor ? "/instructor/dashboard" : "/mycourses");
 			}
 		} catch (error) {
 			console.log("Error", error);

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function MyCourses() {
 	const [data, setData] = React.useState([]);
 
-	const [user, setUser] = useRecoilState(userAtom);
+	const [user] = useRecoilState(userAtom);
 
 	const navigate = useNavigate();
 
