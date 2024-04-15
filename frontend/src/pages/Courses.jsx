@@ -12,6 +12,18 @@ function Courses() {
         { id: 3, title: 'Express', description: 'Learn Express', price: 1100, src: 'https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
 
     ]
+
+    useEffect(() => {
+		if (!user) return navigate("/authUser");
+
+		fetch("/api/user/my-courses")
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				setData(data.data);
+			});
+	}, [navigate, user]);
+    
     return (
         <Container>
             <div className='flex justify-center pb-10'>

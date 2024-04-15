@@ -19,7 +19,7 @@ function LoginCard({ isInstructor = false }) {
 	const toast = useToast({ isClosable: true });
 
 	useEffect(() => {
-		if (user) return navigate("/mycourses");
+		if (user) return navigate("/courses");
 		else if (uploader) return navigate("/instructor/dashboard");
 	}, [navigate, uploader, user]);
 
