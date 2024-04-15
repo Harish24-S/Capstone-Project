@@ -31,6 +31,7 @@ function Header() {
 						className="bg-black rounded-full px-5 py-2 text-white hidden md:inline-block"
 						onClick={() => {
 							setUser(null);
+							setUploader(null);
 							user && fetch("/api/user/logout");
 							uploader && fetch("/api/uploader/logout");
 						}}
