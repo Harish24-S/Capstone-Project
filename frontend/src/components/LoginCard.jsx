@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { userAtom } from "../atoms/userAtom";
 import { useRecoilState } from "recoil";
 import { uploaderAtom } from "../atoms/uploaderAtom";
+import { useToast } from "@chakra-ui/react";
 
 function LoginCard({ isInstructor = false }) {
 	const [inputs, setInputs] = useState({
@@ -14,6 +15,8 @@ function LoginCard({ isInstructor = false }) {
 	const [uploader, setUploader] = useRecoilState(uploaderAtom);
 
 	const navigate = useNavigate();
+
+	const toast = useToast({ isClosable: true });
 
 	useEffect(() => {
 		if (user) return navigate("/mycourses");
@@ -37,6 +40,11 @@ function LoginCard({ isInstructor = false }) {
 			console.log(data);
 			if (data.success === false) {
 				console.log("Error occurred");
+				toast({
+					title: "An error occurred.",
+					description: data.message,
+					status: "error",
+				});
 			} else {
 				console.log("sign in successfully", data);
 				isInstructor ? setUploader(data.data) : setUser(data.data);
