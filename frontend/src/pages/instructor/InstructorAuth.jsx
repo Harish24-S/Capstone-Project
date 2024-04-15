@@ -18,7 +18,7 @@ function InstructorAuth() {
                         <p className={`w-full text-center py-3 text-lg rounded-lg transition-all duration-[0.3s] font-medium cursor-pointer hover:bg-orange-300 ${!isLoginOption && "bg-orange-400 hover:bg-orange-400"} ` } onClick={()=>setIsLoginOption(false)} >Signup</p>
                     </div>
                     {
-                        isLoginOption && <LoginCard/>
+                        isLoginOption && <LoginCard isInstructor />
                     }{
                         !isLoginOption && <SignupCard isInstructor={true}/>
                     }
