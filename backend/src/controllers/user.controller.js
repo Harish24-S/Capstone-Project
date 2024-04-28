@@ -6,6 +6,7 @@ import { uploadFileOnCloudinary } from "../utils/Cloudinary.js";
 import jwt from "jsonwebtoken"
 import { Course } from "../models/course.model.js";
 import fs from "fs"
+import { log } from "console";
 
 
 const generateAccessToken = async (userId) => {
@@ -205,7 +206,7 @@ export const getCourse = asyncHandler(async (req, res) => {
         throw new ApiError(404, "course_was_deleted")
     }
 
-    course.lectures = course.lectures.filter(lecture => lecture.isDeleted === false)
+    course.lectures = course?.lectures?.filter(lecture => lecture.isDeleted === false)
 
     return res.status(200).json(
         new ApiResponse(200,

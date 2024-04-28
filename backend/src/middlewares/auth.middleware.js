@@ -33,12 +33,13 @@ export const checkUserJWT = asyncHandler(async(req,res,next)=>{
             if(user){
                 req.user = user
             }
+            
         }
     } catch (error) {
         console.log(error);
     }
-
     next()
+    
 })
 
 

@@ -5,13 +5,16 @@ const ListVideo = ({ video, setVideo }) => {
     <div className="w-full border-b-2">
       <button
         className="w-full"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault()
           setVideo({
-            src: video.video.url,
-            title: video.title,
-            description: video.description,
+            video: {
+              url: video?.video?.url,
+              },
+              title: video?.title,
+              description: video?.description
           });
-
+          console.log(video.video);
         }}
       >
         {video.title}

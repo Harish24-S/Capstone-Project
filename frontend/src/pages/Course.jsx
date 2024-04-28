@@ -1,24 +1,66 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '../components/Container'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
+import { useToast } from '@chakra-ui/react'
 
 function Course() {
+    const [course, setCourse] = useState({})
+    const {courseId} = useParams()
+    const [userMetaData, setUserMetaData] = useState({})
+    console.log(courseId);
+    const toast = useToast({isClosable: true})
+    useEffect(() => {
+        const getCourse = async () => {
+            try {
+                const response = await fetch(`/api/user/course/${courseId}`);
+                const data = await response.json();
+                console.log(data);
+                if (data.success === true) {
+                    setCourse(data.data.course);
+                    setUserMetaData(data.data)
+                } else {
+                    toast({ title: "An error occurred", description: data.message, status: "error" })
+                }
+
+            } catch (error) {
+                toast({ title: "An error occurred", description: data.message, status: "error" })
+            }
+        }
+        getCourse();
+    }, [courseId])
+
+    const navigate = useNavigate()
+
+    const handleEnrollNow = async (courseId) => {
+        try {
+            const res = await fetch(`/api/user/enroll-course/${courseId}`);
+            const data = await res.json()
+            if(data.success == true){
+                toast({ title: "Course Enroll successfull", description: data.message, status: "success" })
+                navigate('/mycourses')
+            }
+        } catch (error) {
+            toast({ title: "An error occurred", description: data.message, status: "error" })
+            return
+        }
+    }
+
     return (
         <Container>
             <div className='w-full font-[poppins]'>
                 <div className='flex justify-between items-center'>
-                    <h1 className='text-xl md:text-2xl text-center md:text-left font-semibold'>Node js A to Z by</h1>
+                    <h1 className='text-xl md:text-2xl text-center md:text-left font-semibold'>{course.title}</h1>
                     <p className='text-xs'>2 Days ago</p>
                 </div>
                 <div className='mt-10 flex items-center md:flex-row  md:justify-center'>
-                    <img className='w-full md:w-[60%] rounded-2xl border border-gray-300' src="https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" srcset="" />
+                    <img className='w-full md:w-[60%] rounded-2xl border border-gray-300' src={course?.poster?.url} alt="" srcset="" />
                 </div>
                 <div className='flex mt-10 gap-10 justify-between flex-col-reverse sm:flex-row'>
                     <div className='w-[70%] flex flex-col gap-5'>
                         <div>
                             <h1 className='text-md md:text-lg font-semibold mb-3'>Description</h1>
                             <p className='text-sm md:text-md'>
-                                Learn to build modern web applications using the latest technologies and best practices. This course covers frontend and backend development, databases, testing, and deployment. By the end of the course, you'll have the skills to create professional web apps.
+                            {course.description}
                             </p>
                         </div>
                         <div>
@@ -46,7 +88,7 @@ function Course() {
                             <div className='flex gap-2 items-center'>
                                 <img src="https://bit.ly/ryan-florence" alt="" srcset="" className='h-10 w-10 rounded-full' />
                                 <div>
-                                    <p className='font-medium'>John Doe</p>
+                                    <p className='font-medium'>{course.uploaderName}</p>
                                     <p className='text-xs text-gray-600'>Backend Developer,Amazon</p>
                                     <p className='text-xs text-gray-600'>4yr+ experience</p>
                                 </div>
@@ -55,14 +97,26 @@ function Course() {
                         </div>
                         <div>
                             <h1 className='mb-2  text-orange-500 text-md md:text-lg font-semibold'>Course Details</h1>
-                            <h1 className='text-sm'><span className='font-medium'>Price</span> : 200</h1>
+                            <h1 className='text-sm'><span className='font-medium'>Price</span> : {course.price}</h1>
                             <h1 className='text-sm'><span className='font-medium'>Rating</span> : 4.5</h1>
                             <h1 className='text-sm'><span className='font-medium'>Duration</span> : 2 months</h1>
                             <h1 className='text-sm'><span className='font-medium'>Level</span> : Intermediate</h1>
-                            <button className='bg-orange-400 mt-4 text-sm text-white px-5 py-2 rounded-md'>Enroll Now ↗</button>
-                            <Link to={`/videos/1`}>
+                            {
+                            (userMetaData.isLoggedIn && userMetaData.isOpted == false) && 
+                            <button className='bg-orange-400 mt-4 text-sm text-white px-5 py-2 rounded-md'
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    handleEnrollNow(courseId)
+                                }}
+                            >Enroll Now ↗</button>
+                            }
+                            
+                            {
+                            (userMetaData.isLoggedIn && userMetaData.isOpted == true) &&
+                            <Link to={`/videos/${courseId}`}>
                             <button className='bg-green-600 mt-4 text-sm text-white px-5 py-2 rounded-md'>Go to Course</button>
                             </Link> 
+                            }                           
                         </div>
                     
 

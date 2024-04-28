@@ -186,10 +186,10 @@ export const createCourse = asyncHandler(async (req, res) => {
     }
 
     //check is there any course title already present.if yes then return error
-    let existingCourse = await Course.findOne({ courseTitle })
+    let existingCourse = await Course.findOne({ courseTitle,isDeleted:false })
     if (existingCourse) {
-        const posterLocalPath = req?.files?.poster[0].path
-        const documentLocalPath = req?.files?.document[0].path
+        const posterLocalPath = req?.files?.poster[0]?.path
+        const documentLocalPath = req?.files?.document[0]?.path
         fs.unlinkSync(posterLocalPath)
         fs.unlinkSync(documentLocalPath)
         throw new ApiError(409, "Course with same title already exists")
@@ -199,11 +199,12 @@ export const createCourse = asyncHandler(async (req, res) => {
 
 
     const posterLocalPath = req?.files?.poster[0]?.path
+    console.log("poster",posterLocalPath);
     if (!posterLocalPath) {
         throw new ApiError(400, "Poster  is required");
     }
     const documentLocalPath = req?.files?.document[0]?.path
-
+    console.log("doc",documentLocalPath);
     const cloudPoster = await uploadFileOnCloudinary(posterLocalPath)
     const cloudDocument = await uploadFileOnCloudinary(documentLocalPath)
 
@@ -279,6 +280,7 @@ export const getUploadedCourses = asyncHandler(async (req, res) => {
 
 export const deleteCourse = asyncHandler(async (req, res) => {
     const { courseId } = req.params
+    console.log(courseId);
     if (!courseId) {
         throw new ApiError(400, "Provide Course Id")
     }

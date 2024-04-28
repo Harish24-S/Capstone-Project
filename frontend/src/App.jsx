@@ -14,6 +14,9 @@ import { useRecoilState } from "recoil";
 import { userAtom } from "./atoms/userAtom";
 import { useEffect } from "react";
 import { uploaderAtom } from "./atoms/uploaderAtom";
+import InstructorDashboard from "./pages/instructor/InstructorDashboard";
+import UploadCourse from "./pages/instructor/UploadCourse";
+import CoursePage from "./pages/instructor/CoursePage";
 
 function App() {
 	const [user] = useRecoilState(userAtom);
@@ -43,14 +46,18 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/courses" element={<Courses />} />
+				<Route path="/courses" element={user?<Courses />: <AuthSelect />} />
 				<Route path="/auth" element={<AuthSelect />} />
 				<Route path="/userAuth" element={<UserAuth />} />
-				<Route path="/mycourses" element={<MyCourses />} />
-				<Route path="/course/:id" element={<Course />} />
-				<Route path="/videos/:courseId" element={<Video />} />
+				<Route path="/mycourses" element={user?<MyCourses />:<AuthSelect/>} />
+				<Route path="/course/:courseId" element={user?<Course />:<AuthSelect/>} />
+				<Route path="/videos/:courseId" element={user?<Video />:<AuthSelect/>} />
 
 				<Route path="/instructorAuth" element={<InstructorAuth />} />
+				<Route path="/instructor/dashboard" element={uploader?<InstructorDashboard />:<AuthSelect />} />
+				<Route path="/instructor/upload-course" element={uploader?<UploadCourse />:<AuthSelect />} />
+				<Route path="/instructor/course/:courseId" element={uploader?<CoursePage />:<AuthSelect />} />
+
 			</Routes>
 			<Footer />
 		</div>

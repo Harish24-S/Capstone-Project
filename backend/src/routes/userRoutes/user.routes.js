@@ -16,7 +16,7 @@ router.route("/logout").get(logoutUser)
 
 router.route("/all-courses").get(getAllCourses)
 router.route("/my-courses").get(verifyUserJWT, getMyCourses)
-router.route("/course/:courseId").get(checkUserJWT, getCourse)
+router.route("/course/:courseId").get(verifyUserJWT, getCourse)
 
 router.route("/current-user").get(verifyUserJWT,getCurrentUser)
 router.route("/enroll-course/:courseId").get(verifyUserJWT,enrollCourse)

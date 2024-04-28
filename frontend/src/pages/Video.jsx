@@ -2,56 +2,53 @@ import { React, useState, useRef } from "react";
 import Container from "../components/Container";
 import ListVideo from "../components/ListVideo";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const Video = () => {
-  const [video, setVideo] = useState({
-    src: "",
-    title: "React Front End",
-    description: "asdfghjkl"
-  });
+  
+    const [course, setCourse] = useState({})
+    const {courseId} = useParams()
+    console.log(courseId);
+    const toast = useToast({isClosable: true})
+    const [videos, setVideos] = useState([]);
+    const [video, setVideo] = useState(null);
+    const [document, setDocument] = useState({})
 
-  const [videos, setVideos] = useState([
-    {
-        title: "lecture1",
-        description: "description1",
-        isDeleted: false ,
-        video: {
-            public_id: "123456sdfff",
-            url: "https://videos.pexels.com/video-files/20325563/20325563-hd_1920_1080_60fps.mp4"
+    useEffect(() => {
+        const getCourse = async () => {
+            try {
+                const response = await fetch(`/api/user/course/${courseId}`);
+                const data = await response.json();
+                console.log(data);
+                if (data.success === true) {
+                    setCourse(data.data?.course);
+                    setVideos(data.data.course?.lectures)
+                    setVideo(data.data.course?.lectures[0])
+                    setDocument(data.data.course?.document)
+                } else {
+                    toast({ title: "An error occurred", description: data.message, status: "error" })
+                }
+
+            } catch (error) {
+                toast({ title: "An error occurred", description: data.message, status: "error" })
+            }
         }
-    },
-    {
-        title: "lecture2",
-        description: "description2",
-        isDeleted: false ,
-        video: {
-            public_id: "123456sdggg",
-            url: "https://videos.pexels.com/video-files/20576968/20576968-hd_1920_1080_25fps.mp4"
-        }
-    },
-    {
-        title: "lecture3",
-        description: "description3",
-        isDeleted: false ,
-        video: {
-            public_id: "123456sdhhhh",
-            url: "https://videos.pexels.com/video-files/20576968/20576968-hd_1920_1080_25fps.mp4"
-        }
-    },
-  ]);
+        getCourse();
+    }, [courseId])
+
+  
   const [isVideosClicked, setIsVideosClicked] = useState(true);
-  console.log(video.src);
-  const [document, setDocument] = useState({
-    public_id: "123444dddd",
-    url: "https://www.pexels.com/video/ocean-waves-on-los-angeles-beach-20325563/"
-  })
+
 
   const videoRef = useRef() 
 
   useEffect(() => {
-    videoRef.current.src = video.src || null
+    videoRef.current.src = video?.video?.url || null
     videoRef.current.load();
   }, [video])
+
+
 
   return (
     <Container>
@@ -63,9 +60,9 @@ const Video = () => {
           </video>
 
           <div>
-            <h1 className="font-bold text-3xl ">{video.title}</h1>
+            <h1 className="font-bold text-3xl ">{video?.title}</h1>
             <p className="font-medium py-4">
-              {video.description}
+              {video?.description}
             </p>
           </div>
         </div>
@@ -93,11 +90,11 @@ const Video = () => {
 
           <div className="mt-4 flex flex-col gap-4">
           {isVideosClicked && (
-            videos.map((video) => <ListVideo key={video.video.public_id} video={video} setVideo={setVideo} />)
+            videos.map((video) => <ListVideo key={video?.video?.public_id} video={video} setVideo={setVideo} />)
           )}
 
           {!isVideosClicked && 
-          <a className="hover:underline hover:cursor-pointer text-center" href={document && document.url } target="_blank">doc</a>
+          <a className="hover:underline hover:cursor-pointer text-center" href={document && document?.url } target="_blank">doc</a>
           }
           </div>
         </div>

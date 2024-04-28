@@ -15,12 +15,24 @@ function Header() {
 					<li>
 						<Link to={"/"}>Home</Link>
 					</li>
-					<li>
+					{!uploader && <li>
 						<Link to={"/courses"}>Courses</Link>
 					</li>
-					<li>
+					}
+					{user && !uploader && <li>
 						<Link to={"/mycourses"}>My Courses</Link>
 					</li>
+					}
+					{uploader && 
+					<li>
+						<Link to={"/instructor/dashboard"}>Dashboard</Link>
+					</li>
+					}
+					{uploader &&
+					<li>
+						 <Link to={"/instructor/upload-course"}>Upload Course</Link>
+					</li>
+					}
 				</ul>
 			</div>
 			<div className="font-bold text-2xl">Eduwave</div>

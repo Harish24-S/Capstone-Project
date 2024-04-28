@@ -37,11 +37,14 @@ function MyCourses() {
 							<CourseCard
 								delay={0}
 								btnText={"Go to Course"}
-								key={course.id}
+								key={course._id}
 								title={course.title}
 								src={course.src}
 								description={course.description}
 								price={course.price}
+								poster = {course.poster}
+								uploader={course.uploaderName}
+								courseId={course._id}
 							/>
 						</div>
 					);

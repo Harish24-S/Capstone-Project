@@ -58,6 +58,10 @@ function SignupCard({ isInstructor = false }) {
 			} else {
 				console.log("sign up successfully", data);
 				isInstructor ? setUploader(data.data) : setUser(data.data);
+				toast({
+					title: "Signed up Successfully.",
+					status: "success",
+				});
 			}
 		} catch (error) {
 			console.log("Error", error);
