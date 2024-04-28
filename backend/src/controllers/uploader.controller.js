@@ -506,6 +506,22 @@ export const getLectures = asyncHandler(async (req, res) => {
 })
 
 
+export const getUploader = asyncHandler(async (req, res) => {
+    const { uploaderId } = req.params
+    const uploader = await Uploader.findById(uploaderId).select("-password -uploadedCourses")
+
+    if (!uploader) {
+        throw new ApiError(404, "Uploader not found")
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, uploader, "Uploader fetched successfully")
+    )
+})
+
+
+
+
 
 
 

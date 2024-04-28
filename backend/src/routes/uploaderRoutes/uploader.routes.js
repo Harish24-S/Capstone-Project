@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { upload } from "../../middlewares/multer.middleware.js";
-import { addLecture, createCourse, deleteCourse, deleteLecture, editCourse, editLecture, getCourse, getCurrentUploader, getLectures, getUploadedCourses, loginUploader, logoutUploader, registerUploader, updateProfile } from "../../controllers/uploader.controller.js";
+import { addLecture, createCourse, deleteCourse, deleteLecture, editCourse, editLecture, getCourse, getCurrentUploader, getLectures, getUploadedCourses, getUploader, loginUploader, logoutUploader, registerUploader, updateProfile } from "../../controllers/uploader.controller.js";
 import { verifyUploaderJWT } from "../../middlewares/auth.middleware.js";
 import { isUploader } from "../../middlewares/isUploader.middleware.js";
 const router = Router()
@@ -52,6 +52,7 @@ router.route("/add-lecture/:courseId").post(verifyUploaderJWT, isUploader,
 router.route("/edit-lecture").put(verifyUploaderJWT, isUploader,upload.single("video"),editLecture)
 router.route("/delete-lecture").delete(verifyUploaderJWT, isUploader, deleteLecture)
 router.route("/get-lectures/:courseId").get(verifyUploaderJWT, isUploader, getLectures)
+router.route("/uploader/:uploaderId").get(getUploader)
 
 
 

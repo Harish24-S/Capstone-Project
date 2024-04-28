@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { uploaderAtom } from "../atoms/uploaderAtom";
+import "/Users/harish/Documents/GitHub/Capstone-Project/frontend/src/App.css"
 
 function Header() {
 	const [user, setUser] = useRecoilState(userAtom);
@@ -13,24 +14,24 @@ function Header() {
 			<div className="flex justify-between items-center font-semibold text-sm gap-5">
 				<ul className="hidden md:flex gap-5">
 					<li>
-						<Link to={"/"}>Home</Link>
+						<NavLink to={"/"} activeClassName='active'>Home</NavLink>
 					</li>
 					{!uploader && <li>
-						<Link to={"/courses"}>Courses</Link>
+						<NavLink to={"/courses"} activeClassName='active'>Courses</NavLink>
 					</li>
 					}
 					{user && !uploader && <li>
-						<Link to={"/mycourses"}>My Courses</Link>
+						<NavLink to={"/mycourses"} activeClassName='active' >My Courses</NavLink> 
 					</li>
 					}
 					{uploader && 
 					<li>
-						<Link to={"/instructor/dashboard"}>Dashboard</Link>
+						<NavLink to={"/instructor/dashboard"} activeClassName='active'>Dashboard</NavLink>
 					</li>
 					}
 					{uploader &&
 					<li>
-						 <Link to={"/instructor/upload-course"}>Upload Course</Link>
+						 <NavLink to={"/instructor/upload-course"} activeClassName='active'>Upload Course</NavLink>
 					</li>
 					}
 				</ul>
