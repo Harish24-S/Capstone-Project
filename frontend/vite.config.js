@@ -13,5 +13,8 @@ export default defineConfig({
         secure: false
       }
     }
+  },
+  optimizeDeps: {
+    exclude: ['**/*.css'] // Exclude CSS files from being processed by Rollup
   }
 })
