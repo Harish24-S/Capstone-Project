@@ -1,5 +1,5 @@
 {
-  "name": "Capstone-Project",
+  "name": "capstone-project",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -7,15 +7,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/src/index.js",
-    "dev":"nodemon backend/src/index.js",
+    "dev": "nodemon backend/src/index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.0.3",
-    "prettier": "^3.2.5"
+    "nodemon": "^3.0.3"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
