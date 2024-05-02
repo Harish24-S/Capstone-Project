@@ -15,6 +15,6 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    exclude: ['**/*.css'] // Exclude CSS files from being processed by Rollup
+    // exclude: ['**/*.css'] // Exclude CSS files from being processed by Rollup
   }
 })
