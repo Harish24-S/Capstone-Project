@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { uploaderAtom } from "../atoms/uploaderAtom";
-import "/Users/harish/Documents/GitHub/Capstone-Project/frontend/src/App.css"
+import "../../src/App.css"
 
 function Header() {
 	const [user, setUser] = useRecoilState(userAtom);
