@@ -53,7 +53,7 @@ function Header() {
 					</button>
 				) : (
 					<button className="bg-black rounded-full px-5 py-2 text-white hidden md:inline-block">
-						<Link to={"/auth"}>Login</Link>
+						<Link to={"/auth"}>Login / Signup</Link>
 					</button>
 				)}
 			</div>

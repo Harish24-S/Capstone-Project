@@ -17,7 +17,7 @@ export function CourseCard({ src, title,delay,price,description,uploader,btnText
       className="max-w-[250px] rounded-md border bg-white cursor-pointer">
       <div className='p-2'>
         <img
-          src={poster?.url}
+          src={poster?.url || src}
           alt="Laptop"
           className="max-h-[150px] w-full rounded-md object-cover"
         />
@@ -37,7 +37,7 @@ export function CourseCard({ src, title,delay,price,description,uploader,btnText
         }}>
           {btnText}
         </button>}
-        {isUploader && <button type="button" className="mt-3 rounded-sm bg-[#f8c365] px-3 py-2 text-[10px] font-semibold  shadow-sm hover:bg-[#f5b951] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        {isUploader && <button type="button" className="mt-3 rounded-sm bg-[#f8c365] px-3 py-2 text-[10px] font-semibold  shadow-sm hover:bg-[#f5b951] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black float-right"
           onClick={(e)=>{
             e.preventDefault()
             navigate(`/instructor/course/${courseId}`)
