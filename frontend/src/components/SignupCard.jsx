@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { uploaderAtom } from "../atoms/uploaderAtom";
@@ -15,14 +15,15 @@ function SignupCard({ isInstructor = false }) {
 					company: "",
 					experience: "",
 					designation: "",
-			  }
+				}
 			: {
 					fullName: "",
 					email: "",
 					password: "",
-			  }
+				}
 	);
 	const avatarRef = useRef(null);
+	const [avatar, setAvatar] = useState(null);
 
 	const [user, setUser] = useRecoilState(userAtom);
 	const [uploader, setUploader] = useRecoilState(uploaderAtom);
@@ -30,6 +31,13 @@ function SignupCard({ isInstructor = false }) {
 	const navigate = useNavigate();
 
 	const toast = useToast({ isClosable: true });
+
+	const imageSrc = useMemo(() => {
+		if (avatar) {
+			return URL.createObjectURL(avatar);
+		}
+		return "https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png";
+	}, [avatar]);
 
 	useEffect(() => {
 		if (user) return navigate("/courses");
@@ -73,7 +81,7 @@ function SignupCard({ isInstructor = false }) {
 				<div className="flex items-center justify-between gap-10">
 					<img
 						className="w-24 h-24 mb-3 rounded-full shadow-lg"
-						src="https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png"
+						src={imageSrc}
 						alt="Bonnie image"
 					/>
 					<input
@@ -82,6 +90,9 @@ function SignupCard({ isInstructor = false }) {
 						accept="image/jpeg, image/jpg, image/png"
 						hidden
 						ref={avatarRef}
+						onChange={(e) => {
+							setAvatar(e.target.files[0] || null);
+						}}
 					/>
 					<button
 						className="bg-orange-400 text-white py-2 text-sm rounded-lg flex-1 hover:bg-orange-500"
@@ -141,22 +152,12 @@ function SignupCard({ isInstructor = false }) {
 				</div>
 
 				<div>
-					<div className="flex items-center justify-between">
-						<label
-							htmlFor="password"
-							className="block text-sm font-medium leading-6 text-gray-900"
-						>
-							Password
-						</label>
-						<div className="text-sm">
-							<a
-								href="#"
-								className="font-semibold text-orange-400 hover:text-orange-500"
-							>
-								Forgot password?
-							</a>
-						</div>
-					</div>
+					<label
+						htmlFor="password"
+						className="block text-sm font-medium leading-6 text-gray-900"
+					>
+						Password
+					</label>
 					<div className="mt-2">
 						<input
 							id="password"
@@ -263,16 +264,6 @@ function SignupCard({ isInstructor = false }) {
 					</button>
 				</div>
 			</form>
-
-			<p className="mt-10 text-center text-sm text-gray-500">
-				Already a member?{" "}
-				<a
-					href="#"
-					className="font-semibold leading-6 text-orange-400 hover:text-orange-500"
-				>
-					Login
-				</a>
-			</p>
 		</div>
 	);
 }

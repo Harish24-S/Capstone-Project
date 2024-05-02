@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Container from '../../components/Container';
 import CourseCard from '../../components/CourseCard';
 import { useToast } from "@chakra-ui/react";
+import { Link } from 'react-router-dom';
 
 
 function InstructorDashboard() {
@@ -37,6 +38,17 @@ function InstructorDashboard() {
   return (
     <Container>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {data.length === 0 && (
+          <div className="text-center col-span-4">
+            <h1 className="text-2xl font-bold">No courses found</h1>
+            <h2 className="text-lg font-medium mt-4">
+              <Link to="/instructor/upload-course" className="text-orange-600 hover:underline">
+                Add some course here.
+              </Link>
+            </h2>
+          </div>
+        
+        )}
         {data.map((course, index) => (
           <div key={index}>
             <CourseCard

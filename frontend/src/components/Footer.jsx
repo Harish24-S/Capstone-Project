@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='w-full bg-slate-800'>
+    <footer className='w-full bg-slate-800'>
       <div className='grid py-20 px-5 w-[80%] grid-cols-1 sm:grid-cols-2 gap-10 md:grid-cols-5 text-white mx-auto'>
       <div>
         <p className='text-4xl mb-2'>Eduwave</p>
@@ -31,7 +31,7 @@ function Footer() {
         <p className='text-gray-400'>Help center</p>
       </div>
     </div>
-    </div>
+    </footer>
     
   )
 }

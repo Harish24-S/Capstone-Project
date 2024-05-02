@@ -17,6 +17,7 @@ import { uploaderAtom } from "./atoms/uploaderAtom";
 import InstructorDashboard from "./pages/instructor/InstructorDashboard";
 import UploadCourse from "./pages/instructor/UploadCourse";
 import CoursePage from "./pages/instructor/CoursePage";
+import Profile from "./components/Profile";
 
 function App() {
 	const [user] = useRecoilState(userAtom);
@@ -42,7 +43,7 @@ function App() {
 	}, [uploader]);
 
 	return (
-		<div className="w-full bg-[#f8c365] min-h-[100dvh]">
+		<div className="w-full bg-[#f8c365] min-h-[100dvh] [&>div]:min-h-screen">
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
@@ -50,12 +51,14 @@ function App() {
 				<Route path="/auth" element={user||uploader?<Home />:<AuthSelect />} />
 				<Route path="/userAuth" element={<UserAuth />} />
 				<Route path="/mycourses" element={user?<MyCourses />:<AuthSelect/>} />
+				<Route path="/profile" element={user ? <Profile /> : <AuthSelect/>} />
 				<Route path="/course/:courseId" element={user?<Course />:<AuthSelect/>} />
 				<Route path="/videos/:courseId" element={user?<Video />:<AuthSelect/>} />
 
 				<Route path="/instructorAuth" element={<InstructorAuth />} />
 				<Route path="/instructor/dashboard" element={uploader?<InstructorDashboard />:<AuthSelect />} />
 				<Route path="/instructor/upload-course" element={uploader?<UploadCourse />:<AuthSelect />} />
+				<Route path="/instructor/profile" element={uploader ? <Profile isInstructor /> : <AuthSelect/>} />
 				<Route path="/instructor/course/:courseId" element={uploader?<CoursePage />:<AuthSelect />} />
 
 			</Routes>

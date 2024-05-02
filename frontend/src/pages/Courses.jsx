@@ -45,7 +45,7 @@ function Courses() {
 									delay={0}
 									btnText={"Go to Course"}
 									key={course._id}
-									title={course.title}
+									title={course.courseTitle}
 									src={course.src}
 									description={course.description}
 									price={course.price}
