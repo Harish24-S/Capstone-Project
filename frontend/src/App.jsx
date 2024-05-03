@@ -47,7 +47,7 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/courses" element={user?<Courses />: <AuthSelect />} />
+				<Route path="/courses" element={<Courses />} />
 				<Route path="/auth" element={user||uploader?<Home />:<AuthSelect />} />
 				<Route path="/userAuth" element={<UserAuth />} />
 				<Route path="/mycourses" element={user?<MyCourses />:<AuthSelect/>} />

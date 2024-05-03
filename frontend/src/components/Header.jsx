@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../atoms/userAtom";
 import { uploaderAtom } from "../atoms/uploaderAtom";
+import {logo} from "../assets/index"
 import "../../src/App.css";
 
 function Header() {
@@ -21,7 +22,7 @@ function Header() {
 			<div className="flex justify-between items-center font-semibold text-sm gap-5">
 				<ul className="hidden md:flex gap-5">
 					<li>
-						<NavLink to={"/"} activeClassName="active">
+						<NavLink to={"/"}  activeClassName="active">
 							Home
 						</NavLink>
 					</li>
@@ -61,7 +62,9 @@ function Header() {
 					)}
 				</ul>
 			</div>
-			<div className="font-bold text-2xl">Eduwave</div>
+			<div className="font-bold text-2xl">
+				<img className="h-10" src={logo} alt="Eduwave" />
+			</div>
 
 			<div className="flex justify-between items-center font-semibold text-sm gap-5 ">
 				{user || uploader ? (
@@ -88,9 +91,7 @@ function Header() {
 						</button>
 					</div>
 				) : (
-					<button className="bg-black rounded-full px-5 py-2 text-white hidden md:inline-block">
-						<Link to={"/auth"}>Login / Signup</Link>
-					</button>
+						<NavLink className="bg-black rounded-full px-5 py-2 text-white hidden md:inline-block active-btn hover:opacity-90" to={"/auth"}>Login / Signup</NavLink>
 				)}
 			</div>
 		</header>

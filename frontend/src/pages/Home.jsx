@@ -14,6 +14,7 @@ import FeatureCard from '../components/HomepageComponents/FeatureCard.jsx'
 import { FaCheck } from "react-icons/fa6";
 import AutoIncrement from '../components/HomepageComponents/AutoIncrement.jsx'
 import Footer from '../components/Footer.jsx'
+import { Link } from 'react-router-dom'
 
 
 function Home() {
@@ -38,7 +39,9 @@ function Home() {
               <p>Supercharge your skill acquisition with endless courses in your niche</p>
               <p>Explore unlimited learning opportunities </p>
               <p>tailored to your interests and goals.</p>
+              <Link to="/auth">
               <button className='bg-[#f56324]  text-white px-5 py-3 text-sm mt-5 rounded-full  font-semibold'>Enroll now ↗</button>
+              </Link>
             </div>
           </motion.div>
 
@@ -106,8 +109,9 @@ function Home() {
             <p>resources,and tools that help you dive into</p>
             <p>in-depth learning from anywhere.</p>
           </div>
-
+          <Link to="/auth">
           <button className='bg-[#f56324]  text-white px-5 py-3 text-sm mt-5 rounded-full  font-semibold'>Enroll today ↗</button>
+          </Link>
         </motion.div>
       </div>
 
@@ -126,7 +130,9 @@ function Home() {
               <img className='absolute top-9 left-6' src={linesW} alt="" srcset="" />
               <h1 className='text-3xl md:text-5xl text-white font-semibold '>Our <span className='text-[#f8c365] font-[merriweather] font-semibold italic text-3xl md:text-5xl'>Features</span></h1>
               <h1 className='text-2xl md:text-5xl text-white font-semibold leading-relaxed'>Special for you</h1>
+              <Link to="/auth">
               <button className='bg-[#f8c365] px-8 py-3 text-sm mt-8 rounded-full  font-semibold'>Enroll today ↗</button>
+              </Link>
             </motion.div>
             <FeatureCard heading={"Get Certified"} description={"Add value to your certificate and increase the chance of getting hired in your dream company"} image={asset5} delay={0.4} />
           </div>

@@ -16,16 +16,7 @@ function Courses() {
 
 	return (
 		<Container>
-			<div className="flex justify-center pb-10">
-				<div className=" w-[100%] md:w-[50%]  flex justify-between overflow-hidden rounded-xl bg-white">
-					<input
-						className="p-2 rounded-full flex-1 outline-none"
-						type="Search"
-						placeholder="Search Course Category..."
-					/>
-					<button className="px-2">Search</button>
-				</div>
-			</div>
+			
 			{
 				data.length === 0 && (
 					<div className="w-full">

@@ -14,6 +14,7 @@ import asset6 from "./asset6.png"
 import asset7 from "./asset7.png"
 import asset8 from "./asset8.png"
 import asset9 from "./asset9.png"
+import logo from "./logo.png"
 
 
-export {sec3asset,plane,asset4,linesW,asset5,asset6,asset7,asset8,asset9}
+export {sec3asset,plane,asset4,linesW,asset5,asset6,asset7,asset8,asset9,logo}
