@@ -15,7 +15,7 @@ function Header() {
 		if (uploader) return uploader.avatar.url;
 
 		return "https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png";
-	}, []);
+	}, [user, uploader]);
 
 	return (
 		<header className="bg-[#f8c365] w-full flex justify-between md:px-36 p-5 font-[poppins]">
