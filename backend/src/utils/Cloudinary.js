@@ -11,6 +11,18 @@ cloudinary.config({
 
 export const uploadFileOnCloudinary = async(localFilePath)=>{
   try {
+    if (!fs.existsSync(localFilePath)) {
+      console.error('File does not exist:', localFilePath);
+      const errorResponse = {
+          success: false,
+          message: 'File does not exist',
+          // You can include more details in the error response if needed
+      };
+      // Return an error response, indicating that the file does not exist
+      res.status(404).json(errorResponse);
+      // Or you can throw an error to be caught by an error handler middleware
+      // throw new Error('File does not exist');
+  }
     if(!localFilePath) return null
     const response =  await cloudinary.uploader.upload(localFilePath,{
       "resource_type" : "auto"
